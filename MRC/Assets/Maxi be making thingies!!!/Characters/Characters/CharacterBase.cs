@@ -9,17 +9,17 @@ public class CharacterBase : MonoBehaviour
 {
     protected Rigidbody rb;
 
-    public int damageTaken;
+    protected int damageTaken;
 
-    public Vector3 currentPosition;
-    public int currentHealth = 1;
+    protected Vector3 currentPosition;
+    protected int currentHealth = 1;
 
     public int maxHealth = 1;
     public int defense = 1;
 
     public int moveSpeed = 5;
-    public int moveDrag = 5;
-    public Vector3 movementDirection;
+    protected int moveDrag = 5;
+    protected Vector3 movementDirection;
 
     public int attackRange;
     public int attackSpeed;
