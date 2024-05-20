@@ -6,17 +6,21 @@ using UnityEngine.UI;
 
 public class BarraDeVida : MonoBehaviour
 {
+
+
     [SerializeField] private Image barraDeVidaImage;
-    // Start is called before the first frame update
-    void Start()
+
+    private Transform myCamera;
+
+
+    private void Awake()
     {
-        
+        myCamera = Camera.main.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.LookAt(transform.position + myCamera.forward);
     }
 
     public void AlterarBarraDeVida(int vidaAtual, int vidaMaxima)
