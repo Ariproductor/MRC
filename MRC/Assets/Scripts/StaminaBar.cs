@@ -7,10 +7,6 @@ public class StaminaBar : MonoBehaviour
 {
     [SerializeField] private Image staminaBarImage;
 
-    private void Awake()
-    {
-        
-    }
     void Start()
     {
        

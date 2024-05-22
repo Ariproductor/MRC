@@ -29,7 +29,6 @@ public class Stamina : MonoBehaviour
             StopCoroutine(ExecuteEverySecond());
             isRunning = false;
             Debug.Log("False");
-
         }
     }
 
