@@ -25,6 +25,7 @@ public class HealthManager : MonoBehaviour
     public bool canAct = true;
     public bool canMove = true;
     public bool isSlow = false;
+    public float slowCoeficient = 2f;
 
     [Header("Capture Parameters")]
     public bool isCaptive = false;
