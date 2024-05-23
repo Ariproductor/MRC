@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Primitive Movement Parameters")]
     [Range(1, 20)] public float currentMoveSpeed = 6f;
-    public bool canMove = true;
-    public bool canAct = true;
     public Vector3 moveDirection = Vector3.zero;
 
     #endregion

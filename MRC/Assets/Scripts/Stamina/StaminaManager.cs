@@ -30,19 +30,20 @@ public class StaminaManager : MonoBehaviour
     public float sprintSpeed = 18f;
 
     [Header("Crouch Parameters")]
+
+    public bool isCrouchAttempt = false;
     public bool isCrouch = false;
     public bool isCrouchMove = false;
     public float crouchSpeed = 4f;
 
 
     [Header("Status Ailment Parameters")]
-    public bool canAct = true;
     public float stunnedTimer = 0f;
 
-    public bool canMove = true;
-    public float rootedTimer = 0f
-        ;
+    public float rootedTimer = 0f;
+
     public bool isSlow = false;
+    public float slowedTimer = 0f;
     public float slowCoeficient = 2;
 
     [Header("Current Parameters")]
@@ -64,6 +65,10 @@ public class StaminaManager : MonoBehaviour
     }
     public void Update()
     {
+        if (Input.GetKey(KeyCode.LeftControl)) 
+        {
+            isCrouchAttempt = true;
+        }
 
     }
 
@@ -73,14 +78,15 @@ public class StaminaManager : MonoBehaviour
     {
         while (true)
         {
-            if (canAct)
+            if (healthManager.canAct)
             {
-                if (canMove)
+                if (healthManager.canMove)
                 {
                     if (isCrouch)
                     {
                         Debug.Log("I am crouched");
                         currentMoveSpeed = crouchSpeed;
+                        playerStamina -= staminaRegen;
 
 
                     }
@@ -102,6 +108,7 @@ public class StaminaManager : MonoBehaviour
                                 {
                                     Debug.Log("I am sprinting");
                                     currentMoveSpeed = sprintSpeed;
+                                    playerStamina -= staminaDrain;  
 
                                 }
                                 else if (playerStamina < 5)
@@ -115,7 +122,8 @@ public class StaminaManager : MonoBehaviour
                             else if (!isSprintingAttempt)
                             {
                                 Debug.Log("I am walking");  
-                                currentMoveSpeed = walkSpeed;  
+                                currentMoveSpeed = walkSpeed;
+                                playerStamina += staminaRegen;
 
                             }
 
@@ -128,18 +136,20 @@ public class StaminaManager : MonoBehaviour
                 }
 
 
-                else if (!canMove)
+                else if (!healthManager.canMove)
                 {
                     Debug.Log("I am rooted");
                     currentMoveSpeed = 0f;
+                    playerStamina += staminaRegen;
 
                 }
 
             }
-            else if (!canAct) 
+            else if (!healthManager.canAct) 
             {
                 Debug.Log("I am Stuned");
                 currentMoveSpeed = 0f;
+                playerStamina += staminaRegen;
 
             }
 

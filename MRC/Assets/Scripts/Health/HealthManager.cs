@@ -23,8 +23,15 @@ public class HealthManager : MonoBehaviour
 
     [Header("Status Ailment Parameters")]
     public bool canAct = true;
+    public float stunnedTimer = 0f;
+
+
     public bool canMove = true;
-    public bool isSlow = false;
+    public float rootedTimer = 0f;
+
+
+    public bool isSlowed = false;
+    public float slowedTimer = 0f;
     public float slowCoeficient = 2f;
 
     [Header("Capture Parameters")]
@@ -312,34 +319,54 @@ public class HealthManager : MonoBehaviour
     {
         while (true)
         {
-            if (!canAct)
+            if (stunnedTimer > 0)
             {
                 Debug.Log("I am Stunned!");
+                stunnedTimer--;
+                canAct = false;
+
+                #region Monster Capture
                 if (isCaptive)
-                {
-                    Debug.Log("I have been Captured!");
-                    if (isSacrificed)
                     {
-                        Debug.Log("HE'S KILLING ME PLEASE HELP!!!");
+                        Debug.Log("I have been Captured!");
+                        if (isSacrificed)
+                        {
+                            Debug.Log("HE'S KILLING ME PLEASE HELP!!!");
+                            UpdateHealth(-30f);
+
+                        }
 
                     }
-
-                }
+                #endregion
 
             }
-            else if (!canMove)
+            else if (stunnedTimer <= 0)
+            {
+                canAct = true;
+                stunnedTimer = 0;
+            }
+            if (rootedTimer > 0)
             {
                 Debug.Log("I am Rooted!");
-
+                rootedTimer--;
+                canMove = false;
             }
-            else if (isSlow)
+            else if (rootedTimer <= 0)
+            {
+                canMove = true;
+                rootedTimer = 0;
+            }
+            if (slowedTimer > 0)
             {
                 Debug.Log("I am Slowed!");
-
+                isSlowed = true;
+                slowedTimer--;
             }
-
-
-
+            else if (slowedTimer <= 0)
+            {
+                isSlowed = false;
+                slowedTimer = 0;
+            }
             yield return new WaitForSeconds(.5f);
         }
     }
