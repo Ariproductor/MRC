@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
@@ -41,6 +42,7 @@ public class HealthManager : MonoBehaviour
     [Header("Invulnerability Parameters")]
     public bool isInvulnerable = false;
     [Range(0, 100)] public float invulnTimer = 0f;
+    public Light invulnLight;
 
     [Header("HealthUIParameters")]
     public Image isFullHealthImage = null;
@@ -60,10 +62,11 @@ public class HealthManager : MonoBehaviour
         health = maxHealth;
         canAct = true;
         canMove = true;
-        isSlow = false;
+        isSlowed = false;
         isCaptive = false;
         isSacrificed = false;
         isInvulnerable = false;
+        invulnLight.enabled = false;
         invulnTimer = 0f;
 
 
@@ -83,8 +86,6 @@ public class HealthManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            invulnTimer += 10;
-            invulnTimer = Mathf.Clamp(invulnTimer, 0, 100);
         }
     }
     void UpdateHealth(float deltaHealth)
@@ -111,20 +112,24 @@ public class HealthManager : MonoBehaviour
             else if (deltaHealth < 0)
             {
                 Debug.Log("I was Hit!");
-                if (health > 0)
-                {
-                    Debug.Log("I am Taking Damage");
-                    health += deltaHealth;
-                }
-                else if (health <= 0 && !isInvulnerable)
+                if (health <= 0 && !isInvulnerable)
                 {
                     Debug.Log("I am not taking Damage because I should be dead.");
 
                 }
-                else if (isInvulnerable)
+                else if (health > 0 && isInvulnerable)
                 {
                     Debug.Log("I am not taking Damage because I am Invulnerable");
 
+                }
+                else if (health > 0)
+                {
+                    Debug.Log("I am Taking Damage");
+                    health += deltaHealth;
+                    if (invulnTimer <= 0f)
+                    {
+                    TemporarelyIncincible(10);
+                    }
                 }
 
             }
@@ -285,11 +290,18 @@ public class HealthManager : MonoBehaviour
         }
 
     }
-    void TemporarelyIncincible()
+    void TemporarelyIncincible(float invulnTimeAdded)
     {
         Debug.Log("I am Invincible");
+        invulnTimer += invulnTimeAdded;
+        invulnTimer = Mathf.Clamp(invulnTimer, 0, 100);
+
+
 
     }
+
+
+
     public IEnumerator HealthRegenTick()
     {
         while (true)
@@ -379,12 +391,15 @@ public class HealthManager : MonoBehaviour
                 Debug.Log("I am currently invulnerable with" + invulnTimer + "Seconds Remaining");
                 invulnTimer -= 1;
                 isInvulnerable = true;
+                invulnLight.enabled = true;
+
             }
             else if (invulnTimer <= 0)
             {
                 Debug.Log("My InvulnTimer has run out");
                 invulnTimer = 0;
                 isInvulnerable = false;
+                invulnLight.enabled = false;
 
             }
 

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         {
             if (healthManager.canMove)
             {
-                if (healthManager.isSlow)
+                if (healthManager.isSlowed)
                 {
                     ApplySlowMovement();
                 }
@@ -81,8 +81,4 @@ public class PlayerController : MonoBehaviour
         characterController.Move((moveDirection / healthManager.slowCoeficient) * Time.deltaTime);
     }
 
-    void UpdateStaminaUI()
-    {
-
-    }
 }

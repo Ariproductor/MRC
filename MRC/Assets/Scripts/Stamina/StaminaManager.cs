@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -70,9 +71,22 @@ public class StaminaManager : MonoBehaviour
             isCrouchAttempt = true;
         }
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+
+        }
+
     }
 
 
+    public void UpdateStamina()
+    {
+
+    }
+    public void UpdateStaminaUI()
+    {
+
+    }
 
     public IEnumerator StaminaTick()
     {
