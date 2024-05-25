@@ -18,36 +18,34 @@ public class StaminaManager : MonoBehaviour
     public HealthManager healthManager = null;
 
     [Header("Walk Parameters")]
-    public bool isWalking = false;
+    public bool isWalk = false;
     public float walkSpeed = 6f;
 
     [Header("Stamina Regen Parameters")]
-    public float staminaDrain = 10f;
+    public float staminaDrain = 5f;
     public float staminaRegen = 0.5f;
 
     [Header("Sprint Parameters")]
-    public bool isSprintingAttempt = false;
-    public bool isSprinting = false;
+    public bool isSprint = false;
     public float sprintSpeed = 18f;
 
     [Header("Crouch Parameters")]
 
-    public bool isCrouchAttempt = false;
     public bool isCrouch = false;
     public bool isCrouchMove = false;
     public float crouchSpeed = 4f;
 
 
     [Header("Status Ailment Parameters")]
-    public float stunnedTimer = 0f;
 
-    public float rootedTimer = 0f;
-
+    public bool isStunned = false;
+    public bool isRooted = false;
     public bool isSlow = false;
-    public float slowedTimer = 0f;
+
     public float slowCoeficient = 2;
 
     [Header("Current Parameters")]
+    public bool isMove = false;
     public float currentMoveSpeed = 6f;
 
     [Header("Stamina UI Elements")]
@@ -63,114 +61,220 @@ public class StaminaManager : MonoBehaviour
         healthManager = GetComponent<HealthManager>();
 
         #endregion
+        StartCoroutine(StaminaTick());
+
     }
     public void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl)) 
-        {
-            isCrouchAttempt = true;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-
-        }
-
+        MovementStateChecker();
+        SpeedCalculator();
+        UpdateStaminaUI();
     }
 
-
-    public void UpdateStamina()
+    void MovementStateChecker()
     {
+        CheckStatusAilments();
+        CheckCrouchStatus();
+        CheckMoveStatus();
+        CheckSprintStatus();
+    }
+
+    #region Movement State Checker
+
+
+    void CheckStatusAilments()
+    {
+        if (healthManager.stunnedTimer > 0)
+        {
+            isStunned = true;
+        }
+        else
+        {
+            isStunned = false;
+        }
+
+        if (healthManager.rootedTimer > 0)
+        {
+            isRooted = true;
+        }
+        else
+        {
+            isRooted = false;
+        }
+
+        if (healthManager.slowedTimer > 0)
+        {
+            isSlow = true;
+        }
+        else
+        {
+            isSlow = false;
+        }
 
     }
+    void CheckCrouchStatus()
+    {
+        if (isStunned)
+        {
+            isCrouch = false;
+        }
+        else
+        {
+            if (isSprint)
+            {
+                isCrouch = false;
+            }
+            else
+            {
+                if (playerController.isCrouchAttempt)
+                {
+                    isCrouch = true;
+                }
+                else
+                {
+                    isCrouch = false;
+                }
+
+            }
+        }
+    }
+    void CheckMoveStatus()
+    {
+        if (isStunned)
+        {
+            isMove = false;
+        }
+        else
+        {
+            if (isRooted)
+            {
+                isMove = false;
+            }
+            else
+            {
+                if (playerController.moveDirection !=Vector3.zero)
+                {
+                    isMove = true;
+                }
+                else
+                {
+                    isMove= false;
+                }
+
+            }
+        }
+    }
+    void CheckSprintStatus()
+    {
+        if (isStunned)
+        {
+            isSprint = false;
+        }
+        else
+        {
+            if (isRooted)
+            {
+                isSprint = false;
+            }
+            else
+            {
+                if (isSlow)
+                {
+                    isSprint= false;
+                }
+                else
+                {
+                    if (!isMove)
+                    {
+                        isSprint = false;
+                    }
+                    else
+                    {
+                        if (!playerController.isSprintAttempt)
+                        {
+                            isSprint = false;
+                        }
+                        else
+                        {
+                            if (playerStamina <= 0)
+                            {
+                                isSprint = false;
+                            }
+                            else
+                            {
+                                isSprint = true;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    #endregion
+
+    void SpeedCalculator()
+    {
+        if (isSlow)
+        {
+            CalculateNormalSpeed();
+            currentMoveSpeed = (currentMoveSpeed / healthManager.slowCoeficient);
+        }
+        else
+        {
+            CalculateNormalSpeed();
+        }
+    }
+
+    #region Speed Calculator
+
+
+    void CalculateNormalSpeed()
+    {
+        if (isCrouch)
+        {
+            currentMoveSpeed = crouchSpeed;
+        }
+        else
+        {
+            if (isSprint)
+            {
+                currentMoveSpeed = sprintSpeed;
+            }
+            else
+            {
+                currentMoveSpeed = walkSpeed;
+            }
+        }
+    }
+
+
+    #endregion
+
     public void UpdateStaminaUI()
     {
-
+        staminaProgressUI.fillAmount = playerStamina / maxStamina;
     }
 
     public IEnumerator StaminaTick()
     {
         while (true)
         {
-            if (healthManager.canAct)
+            if (isSprint)
             {
-                if (healthManager.canMove)
-                {
-                    if (isCrouch)
-                    {
-                        Debug.Log("I am crouched");
-                        currentMoveSpeed = crouchSpeed;
-                        playerStamina -= staminaRegen;
-
-
-                    }
-                    else if (!isCrouch) 
-                    {
-                        if (playerController.moveDirection == Vector3.zero)
-                        {
-                            Debug.Log("I am standing still");
-                            currentMoveSpeed = walkSpeed;
-
-                        }
-                        else if (playerController.moveDirection != Vector3.zero)
-                        {
-                            Debug.Log("I am moving!");
-                            if (isSprintingAttempt) 
-                            {
-                                Debug.Log("I am attempting to sprint");
-                                if (playerStamina >= 5 )
-                                {
-                                    Debug.Log("I am sprinting");
-                                    currentMoveSpeed = sprintSpeed;
-                                    playerStamina -= staminaDrain;  
-
-                                }
-                                else if (playerStamina < 5)
-                                {
-                                    Debug.Log("I am out of Stamina");
-                                    currentMoveSpeed = crouchSpeed;
-
-                                }
-
-                            }
-                            else if (!isSprintingAttempt)
-                            {
-                                Debug.Log("I am walking");  
-                                currentMoveSpeed = walkSpeed;
-                                playerStamina += staminaRegen;
-
-                            }
-
-                        }
-
-
-                        
-                    }
-
-                }
-
-
-                else if (!healthManager.canMove)
-                {
-                    Debug.Log("I am rooted");
-                    currentMoveSpeed = 0f;
-                    playerStamina += staminaRegen;
-
-                }
-
+                playerStamina -= staminaDrain;
             }
-            else if (!healthManager.canAct) 
+            else if (!playerController.isSprintAttempt)
             {
-                Debug.Log("I am Stuned");
-                currentMoveSpeed = 0f;
                 playerStamina += staminaRegen;
-
             }
-
-            staminaProgressUI.fillAmount = playerStamina / maxStamina;
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.1f);
         }
     }
+
+    
 
 
 }

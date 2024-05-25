@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController = null;
 
     [Header("Primitive Movement Parameters")]
+    public bool isSprintAttempt = false;
+    public bool isCrouchAttempt = false;
     [Range(1, 20)] public float currentMoveSpeed = 6f;
     public Vector3 moveDirection = Vector3.zero;
 
@@ -27,33 +29,56 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        #region Reset Variables
+
+
         characterController = GetComponent<CharacterController>();
         staminaManager = GetComponent<StaminaManager>();
         healthManager = GetComponent<HealthManager>();
+        isSprintAttempt = false;
+        isCrouchAttempt = false;
+
+
+        #endregion
+
     }
 
     void Update()
     {
+        IsCrouchAttempt();
+
+        IsSprintAttempt();
 
         HandleMovement();
 
-        if (healthManager.canAct)
-        {
-            if (healthManager.canMove)
-            {
-                if (healthManager.isSlowed)
-                {
-                    ApplySlowMovement();
-                }
-                else
-                {
-                    ApplyMovement();
-                }
-            }
-        }
+        SetSpeed();
+
+        ApplyMovement();
     }
+    void IsSprintAttempt()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            isSprintAttempt = true;
+        }
+        else
+        {
+            isSprintAttempt = false;
+        }
 
+    }
+    void IsCrouchAttempt()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            isCrouchAttempt = true;
+        }
+        else
+        {
+            isCrouchAttempt = false;
+        }
 
+    }
     void HandleMovement()
     {
         Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
@@ -70,15 +95,34 @@ public class PlayerController : MonoBehaviour
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
     }
-
+    void SetSpeed()
+    {
+        currentMoveSpeed = staminaManager.currentMoveSpeed;
+    }
     void ApplyMovement()
     {
-        characterController.Move(moveDirection * Time.deltaTime);
-    }
+        if (staminaManager.isStunned)
+        {
 
-    void ApplySlowMovement()
-    {
-        characterController.Move((moveDirection / healthManager.slowCoeficient) * Time.deltaTime);
+        }
+        else
+        {
+            if (staminaManager.isRooted)
+            {
+
+            }
+            else
+            {
+                if (characterController.isGrounded)
+                {
+                    characterController.Move(moveDirection * Time.deltaTime);
+                }
+                else
+                {
+                    characterController.Move( new Vector3(0, -10, 0) *Time.deltaTime);
+                }
+            }
+        }
     }
 
 }

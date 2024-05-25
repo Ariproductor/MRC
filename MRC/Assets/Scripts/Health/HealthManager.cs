@@ -23,15 +23,10 @@ public class HealthManager : MonoBehaviour
     public bool is0Health = false;
 
     [Header("Status Ailment Parameters")]
-    public bool canAct = true;
     public float stunnedTimer = 0f;
 
-
-    public bool canMove = true;
     public float rootedTimer = 0f;
 
-
-    public bool isSlowed = false;
     public float slowedTimer = 0f;
     public float slowCoeficient = 2f;
 
@@ -52,17 +47,12 @@ public class HealthManager : MonoBehaviour
     public Image isAbove1HealthImage = null;
     public Image is0HealthImage = null;
 
-    
-
 
     private void Start()
     {
         #region Reset Parameters on Start
 
         health = maxHealth;
-        canAct = true;
-        canMove = true;
-        isSlowed = false;
         isCaptive = false;
         isSacrificed = false;
         isInvulnerable = false;
@@ -86,6 +76,7 @@ public class HealthManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            slowedTimer = +10;
         }
     }
     void UpdateHealth(float deltaHealth)
@@ -299,9 +290,6 @@ public class HealthManager : MonoBehaviour
 
 
     }
-
-
-
     public IEnumerator HealthRegenTick()
     {
         while (true)
@@ -335,7 +323,6 @@ public class HealthManager : MonoBehaviour
             {
                 Debug.Log("I am Stunned!");
                 stunnedTimer--;
-                canAct = false;
 
                 #region Monster Capture
                 if (isCaptive)
@@ -354,29 +341,24 @@ public class HealthManager : MonoBehaviour
             }
             else if (stunnedTimer <= 0)
             {
-                canAct = true;
                 stunnedTimer = 0;
             }
             if (rootedTimer > 0)
             {
                 Debug.Log("I am Rooted!");
                 rootedTimer--;
-                canMove = false;
             }
             else if (rootedTimer <= 0)
             {
-                canMove = true;
                 rootedTimer = 0;
             }
             if (slowedTimer > 0)
             {
                 Debug.Log("I am Slowed!");
-                isSlowed = true;
                 slowedTimer--;
             }
             else if (slowedTimer <= 0)
             {
-                isSlowed = false;
                 slowedTimer = 0;
             }
             yield return new WaitForSeconds(.5f);

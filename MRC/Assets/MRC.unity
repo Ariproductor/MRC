@@ -877,7 +877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238534650}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27984816, y: -0.36470523, z: 0.11591691, w: 0.88047624}
+  m_LocalRotation: {x: 0.27984816, y: -0.3647052, z: 0.11591689, w: 0.88047624}
   m_LocalPosition: {x: 30, y: 30, z: -29.999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1131,6 +1131,8 @@ MonoBehaviour:
   staminaManager: {fileID: 654893379}
   healthManager: {fileID: 654893378}
   characterController: {fileID: 654893380}
+  isSprintAttempt: 0
+  isCrouchAttempt: 0
   currentMoveSpeed: 6
   moveDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &654893378
@@ -1154,11 +1156,8 @@ MonoBehaviour:
   isAbove25Health: 0
   isAbove1Health: 0
   is0Health: 0
-  canAct: 1
   stunnedTimer: 0
-  canMove: 1
   rootedTimer: 0
-  isSlowed: 0
   slowedTimer: 0
   slowCoeficient: 2
   isCaptive: 0
@@ -1188,22 +1187,20 @@ MonoBehaviour:
   maxStamina: 100
   playerController: {fileID: 654893377}
   healthManager: {fileID: 654893378}
-  isWalking: 0
+  isWalk: 0
   walkSpeed: 6
-  staminaDrain: 10
+  staminaDrain: 5
   staminaRegen: 0.5
-  isSprintingAttempt: 0
-  isSprinting: 0
+  isSprint: 0
   sprintSpeed: 18
-  isCrouchAttempt: 0
   isCrouch: 0
   isCrouchMove: 0
   crouchSpeed: 4
-  stunnedTimer: 0
-  rootedTimer: 0
+  isStunned: 0
+  isRooted: 0
   isSlow: 0
-  slowedTimer: 0
   slowCoeficient: 2
+  isMove: 0
   currentMoveSpeed: 6
   staminaProgressUI: {fileID: 244783904}
 --- !u!143 &654893380
@@ -1648,7 +1645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823889890}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27984816, y: -0.36470523, z: 0.11591691, w: 0.88047624}
+  m_LocalRotation: {x: 0.27984816, y: -0.3647052, z: 0.11591689, w: 0.88047624}
   m_LocalPosition: {x: 25.450703, y: 31.7, z: -47.321877}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
