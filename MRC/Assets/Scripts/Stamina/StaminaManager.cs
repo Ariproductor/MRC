@@ -265,10 +265,18 @@ public class StaminaManager : MonoBehaviour
             if (isSprint)
             {
                 playerStamina -= staminaDrain;
+                if (playerStamina < 0)
+                {
+                    playerStamina = 0;
+                }
             }
             else if (!playerController.isSprintAttempt)
             {
                 playerStamina += staminaRegen;
+                if (playerStamina > maxStamina)
+                {
+                    playerStamina = maxStamina;
+                }
             }
             yield return new WaitForSeconds(.1f);
         }
