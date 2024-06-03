@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using Photon.Pun;
+using Photon.Realtime;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(StaminaManager))]
 [RequireComponent(typeof(HealthManager))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     #region Variables
 
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour
     }
     void HandleMovement()
     {
+        if (!photonView.IsMine) return;
         Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
         Vector3 right = Camera.main.transform.TransformDirection(Vector3.right);
 
@@ -91,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
         float curSpeedX = currentMoveSpeed * Input.GetAxis("Vertical");
         float curSpeedY = currentMoveSpeed * Input.GetAxis("Horizontal");
-
+        
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
     }
