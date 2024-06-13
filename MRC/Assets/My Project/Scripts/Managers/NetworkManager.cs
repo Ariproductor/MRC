@@ -10,15 +10,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject playerPrefab;
 
+    [Header("Related Scripts")]
+    public GameManager gameManager;
+    public MenuManager menuManager;
 
-
-    private void Start()
+    private void Awake()
     {
-        Debug.Log("Start");
-        ConnectToPhoton();
+        gameManager = GetComponent<GameManager>();
+        menuManager = GetComponent<MenuManager>();
     }
 
-    private void ConnectToPhoton()
+
+    public void ConnectToPhoton()
     {
         Debug.Log("ConnectToPhoton");
         PhotonNetwork.ConnectUsingSettings();
@@ -51,7 +54,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log("Playercount:" + PhotonNetwork.CurrentRoom.PlayerCount);
-        photonView.RPC("CreatePlayerAvatar", PhotonNetwork.LocalPlayer);
+        //photonView.RPC("CreatePlayerAvatar", PhotonNetwork.LocalPlayer);
     }
 
     [PunRPC]
