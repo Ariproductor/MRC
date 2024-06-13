@@ -54,7 +54,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log("Playercount:" + PhotonNetwork.CurrentRoom.PlayerCount);
-        //photonView.RPC("CreatePlayerAvatar", PhotonNetwork.LocalPlayer);
+        menuManager.loadingScreen.SetActive(false);
+        menuManager.chatScreen.SetActive(true);
     }
 
     [PunRPC]

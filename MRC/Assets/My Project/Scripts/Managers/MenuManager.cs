@@ -21,6 +21,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
     [Header("Screens")]
     public GameObject loadingScreen;
     public GameObject enterYourNicknameScreen;
+    public GameObject chatScreen;
 
     [Header("TextMeshPro Inputs")]
     public TMP_InputField inputNickName;
@@ -39,6 +40,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        loadingScreen.SetActive(false);
+        enterYourNicknameScreen.SetActive(true);
 
 
     }
