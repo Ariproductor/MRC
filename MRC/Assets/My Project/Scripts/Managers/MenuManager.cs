@@ -41,6 +41,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
     void Start()
     {
         loadingScreen.SetActive(false);
+        chatScreen.SetActive(false);
+
         enterYourNicknameScreen.SetActive(true);
 
 
@@ -54,6 +56,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         if (inputNickName.text.Length > 0)
         {
             playerNickName = inputNickName.text;
+            PhotonNetwork.LocalPlayer.NickName = playerNickName;
             gameManager.playerNickName = playerNickName;
             Debug.Log("Your Nickname is: " + inputNickName.text);
             enterYourNicknameScreen.SetActive(false);

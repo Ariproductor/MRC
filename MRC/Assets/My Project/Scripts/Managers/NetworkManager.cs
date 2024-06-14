@@ -59,7 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void CreatePlayerAvatar()
+    public void CreatePlayerAvatar()
     {
         Vector3 pos = new Vector3(Random.Range(-3f, 3f), 2f, Random.Range(-3f, 3f));
         PhotonNetwork.Instantiate(playerPrefab.name, transform.position, Quaternion.identity);

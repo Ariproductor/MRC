@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(NetworkManager))]
@@ -12,8 +13,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
 
     public static GameManager instance;
-        
-    
+    [SerializeField] GameObject playerPrefab;
+
+
     [HideInInspector] public Transform cameraPlayer;
 
     [Header("Related Scripts")]
@@ -37,6 +39,21 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
     void Update()
+    {
+        
+    }
+    public void StartGame()
+    {
+        loadMatch();
+
+    }
+
+    public void loadMatch()
+    {
+        SceneManager.LoadScene("MRC");
+
+    }
+    public void FinishGame()
     {
         
     }
