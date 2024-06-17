@@ -83,18 +83,14 @@ public class HealthManager : MonoBehaviour
     {
         if (deltaHealth != 0)
         {
-            Debug.Log("Something Happened to my Health!");
             if (deltaHealth > 0)
             {
-                Debug.Log("I was Healed!");
                 if (health == maxHealth) 
                 { 
-                    Debug.Log("I am Not Gaining Health because i am full Health");
 
                 }
                 else if (health < maxHealth)
                 {
-                    Debug.Log("I am Gaining Health");
                     health += deltaHealth;
 
                 }
@@ -102,7 +98,6 @@ public class HealthManager : MonoBehaviour
             }
             else if (deltaHealth < 0)
             {
-                Debug.Log("I was Hit!");
                 if (health <= 0 && !isInvulnerable)
                 {
                     Debug.Log("I am not taking Damage because I should be dead.");
@@ -135,7 +130,6 @@ public class HealthManager : MonoBehaviour
     {
         if (health == maxHealth)
         {
-            Debug.Log("I am full Health");
             isFullHealth = true;
             isAbove75Health = false;
             isAbove50Health = false;
@@ -146,7 +140,6 @@ public class HealthManager : MonoBehaviour
 }
         else if ((health / maxHealth) >= 0.75f)
         {
-            Debug.Log("I am between 75% and 99% Health");
             isFullHealth = false;
             isAbove75Health = true;
             isAbove50Health = false;
@@ -157,7 +150,6 @@ public class HealthManager : MonoBehaviour
         }
         else if ((health / maxHealth) >= 0.50f)
         {
-            Debug.Log("I am between 50% and 74% Health");
             isFullHealth = false;
             isAbove75Health = false;
             isAbove50Health = true;
@@ -168,7 +160,6 @@ public class HealthManager : MonoBehaviour
         }
         else if ((health / maxHealth) >= 0.25f)
         {
-            Debug.Log("I am between 25% and 49% Health");
             isFullHealth = false;
             isAbove75Health = false;
             isAbove50Health = false;
@@ -179,7 +170,6 @@ public class HealthManager : MonoBehaviour
         }
         else if ((health / maxHealth) >= 0.01f)
         {
-            Debug.Log("I am between 1% and 24% Health");
             isFullHealth = false;
             isAbove75Health = false;
             isAbove50Health = false;
@@ -190,7 +180,6 @@ public class HealthManager : MonoBehaviour
         }
         else if (health <= 0)
         {
-            Debug.Log("I am fucking dead, bro!");
             isFullHealth = false;
             isAbove75Health = false;
             isAbove50Health = false;
@@ -283,7 +272,6 @@ public class HealthManager : MonoBehaviour
     }
     void TemporarelyIncincible(float invulnTimeAdded)
     {
-        Debug.Log("I am Invincible");
         invulnTimer += invulnTimeAdded;
         invulnTimer = Mathf.Clamp(invulnTimer, 0, 100);
 
@@ -296,18 +284,15 @@ public class HealthManager : MonoBehaviour
         {
             if (healthRegen == 0)
             {
-                Debug.Log("I am not Regenerating!");
 
             }
             else if (healthRegen > 0)
             {
-                Debug.Log("I am Regenerating!");
                 UpdateHealth(healthRegen);
 
             }
             else if (healthRegen < 0)
             {
-                Debug.Log("I am Poisoned!");
                 UpdateHealth(healthRegen);
 
             }
@@ -321,7 +306,6 @@ public class HealthManager : MonoBehaviour
         {
             if (stunnedTimer > 0)
             {
-                Debug.Log("I am Stunned!");
                 stunnedTimer--;
 
                 #region Monster Capture
@@ -345,7 +329,6 @@ public class HealthManager : MonoBehaviour
             }
             if (rootedTimer > 0)
             {
-                Debug.Log("I am Rooted!");
                 rootedTimer--;
             }
             else if (rootedTimer <= 0)
@@ -354,7 +337,6 @@ public class HealthManager : MonoBehaviour
             }
             if (slowedTimer > 0)
             {
-                Debug.Log("I am Slowed!");
                 slowedTimer--;
             }
             else if (slowedTimer <= 0)
@@ -370,7 +352,6 @@ public class HealthManager : MonoBehaviour
         {
             if (invulnTimer > 0)
             {
-                Debug.Log("I am currently invulnerable with" + invulnTimer + "Seconds Remaining");
                 invulnTimer -= 1;
                 isInvulnerable = true;
                 invulnLight.enabled = true;
@@ -378,7 +359,6 @@ public class HealthManager : MonoBehaviour
             }
             else if (invulnTimer <= 0)
             {
-                Debug.Log("My InvulnTimer has run out");
                 invulnTimer = 0;
                 isInvulnerable = false;
                 invulnLight.enabled = false;
