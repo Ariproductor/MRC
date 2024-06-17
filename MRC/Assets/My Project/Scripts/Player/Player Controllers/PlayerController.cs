@@ -104,28 +104,25 @@ public class PlayerController : MonoBehaviourPun
     }
     void ApplyMovement()
     {
+        //Se o personagem estiver atordoado, não faça nada.
         if (staminaManager.isStunned)
         {
-
+            return;
         }
-        else
+
+        //Se o personagem estiver enraizado, não faça nada.
+        if (staminaManager.isRooted)
         {
-            if (staminaManager.isRooted)
-            {
-
-            }
-            else
-            {
-                if (characterController.isGrounded)
-                {
-                    characterController.Move(moveDirection * Time.deltaTime);
-                }
-                else
-                {
-                    characterController.Move( new Vector3(0, -10, 0) *Time.deltaTime);
-                }
-            }
+            return;
         }
-    }
+        
+        //se o personagem estivar tocando o chão, é aplicado moveDirection à função Move.
+        if (characterController.isGrounded)
+        {
+            characterController.Move(moveDirection * Time.deltaTime);
+        }
 
+        //se o personagem não estiver tocando o chão, é aplicado a gravidade à função Move.
+        characterController.Move( new Vector3(0, -10, 0) *Time.deltaTime);
+    }
 }
