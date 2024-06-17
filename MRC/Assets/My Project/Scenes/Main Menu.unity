@@ -298,9 +298,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1161059935}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Register
+      - m_Target: {fileID: 2051372898}
+        m_TargetAssemblyTypeName: PlayerNicknameMenu, Assembly-CSharp
+        m_MethodName: ButtonRegister
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 55410664}
   - component: {fileID: 55410663}
   m_Layer: 5
-  m_Name: Chat Screen
+  m_Name: ChatMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2316,8 +2316,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2051372895}
   - {fileID: 485852578}
+  - {fileID: 2051372895}
   - {fileID: 55410662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3821,13 +3821,14 @@ GameObject:
   - component: {fileID: 2051372895}
   - component: {fileID: 2051372897}
   - component: {fileID: 2051372896}
+  - component: {fileID: 2051372898}
   m_Layer: 5
-  m_Name: EnterYourNickname Screen
+  m_Name: PlayerNicknameMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2051372895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3887,6 +3888,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051372894}
   m_CullTransparentMesh: 1
+--- !u!114 &2051372898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051372894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e62de7b3948474fa1faa2a84b3c60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNicknameMenu: {fileID: 2051372894}
+  gameManager: {fileID: 1161059931}
+  networkManager: {fileID: 0}
+  inputNickName: {fileID: 952987456}
+  playerNickName: 
 --- !u!1 &2053019011
 GameObject:
   m_ObjectHideFlags: 0

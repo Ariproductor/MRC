@@ -40,31 +40,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-        loadingScreen.SetActive(false);
-        chatScreen.SetActive(false);
-
         enterYourNicknameScreen.SetActive(true);
-
-
-    }
-    void Update()
-    {
-        
-    }
-    public void Register()
-    {
-        if (inputNickName.text.Length > 0)
-        {
-            playerNickName = inputNickName.text;
-            PhotonNetwork.LocalPlayer.NickName = playerNickName;
-            gameManager.playerNickName = playerNickName;
-            Debug.Log("Your Nickname is: " + inputNickName.text);
-            enterYourNicknameScreen.SetActive(false);
-            loadingScreen.SetActive(true);
-            networkManager.ConnectToPhoton();
-           
-        }
-        else return;
-        
+        loadingScreen.SetActive(true);
+        chatScreen.SetActive(false);
     }
 }
