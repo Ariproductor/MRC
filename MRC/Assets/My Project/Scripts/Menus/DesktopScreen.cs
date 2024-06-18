@@ -5,8 +5,23 @@ using UnityEngine;
 public class DesktopScreen : MonoBehaviour
 {
     public GameObject desktopScreen;
+
+
+    [Header("ChatBox")]
     public GameObject chatBox;
-     public bool chatBoxToggle = false;
+    public bool chatBoxToggle = false;
+
+
+    [Header("MRCMenu")]
+    public GameObject mRCMenu;
+    public bool mRCMenuToggle = false;
+
+    [Header("OptionsMenu")]
+    public GameObject optionsMenu;
+    public bool optionsMenuToggle = false;
+
+
+
 
     private void Start()
     {
@@ -16,7 +31,6 @@ public class DesktopScreen : MonoBehaviour
     public void ButtonChat()
     {
         chatBoxToggle = !chatBoxToggle;
-
         if (chatBoxToggle)
         {
             chatBox.SetActive(true);
@@ -27,15 +41,32 @@ public class DesktopScreen : MonoBehaviour
         }
     }
 
-    public void ButtonMapSelectMenu()
+    public void ButtonMRCMenu()
     {
-
+        mRCMenuToggle = !mRCMenuToggle;
+        if (mRCMenuToggle)
+        {
+            mRCMenu.SetActive(true);
+        }
+        else
+        {
+            mRCMenu.SetActive(false);
+        }
     }
 
-    public void StartGame()
+    public void ButtonOptionsMenu()
     {
-
+        optionsMenuToggle = !optionsMenuToggle;
+        if (!optionsMenuToggle)
+        {
+            optionsMenu.SetActive(true);
+        }
+        else
+        {
+            optionsMenu.SetActive(false);
+        }
     }
+
 
 
 }

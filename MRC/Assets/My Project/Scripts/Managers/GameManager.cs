@@ -22,10 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public NetworkManager networkManager;
     public MenuManager menuManager;
 
-
     public string playerNickName;
-
-
 
     private void Awake()
     {
@@ -33,29 +30,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         networkManager = GetComponent<NetworkManager>();
         menuManager = GetComponent<MenuManager>();
     }
-    void Start()
-    {
-
-
-    }
-    void Update()
-    {
-        
-    }
-    public void StartGame()
-    {
-        loadMatch();
-
-    }
-
-    public void loadMatch()
-    {
-        SceneManager.LoadScene("MRC");
-
-    }
-    public void FinishGame()
-    {
-        
-    }
-
 }

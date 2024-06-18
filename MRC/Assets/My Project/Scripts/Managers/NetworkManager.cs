@@ -14,6 +14,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameManager gameManager;
     public MenuManager menuManager;
 
+    public GameObject desktopScreen;
+
     private void Awake()
     {
         gameManager = GetComponent<GameManager>();
@@ -54,15 +56,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log("Playercount:" + PhotonNetwork.CurrentRoom.PlayerCount);
-        menuManager.loadingScreen.SetActive(false);
-        menuManager.chatScreen.SetActive(true);
-    }
+        desktopScreen.SetActive(true);
 
-    [PunRPC]
-    public void CreatePlayerAvatar()
-    {
-        Vector3 pos = new Vector3(Random.Range(-3f, 3f), 2f, Random.Range(-3f, 3f));
-        PhotonNetwork.Instantiate(playerPrefab.name, transform.position, Quaternion.identity);
     }
-
 }

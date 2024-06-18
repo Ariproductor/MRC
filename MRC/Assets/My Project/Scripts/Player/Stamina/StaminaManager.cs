@@ -254,7 +254,15 @@ public class StaminaManager : MonoBehaviour
 
     public void UpdateStaminaUI()
     {
-        staminaProgressUI.fillAmount = playerStamina / maxStamina;
+        if (staminaProgressUI != null)
+        {
+            staminaProgressUI.fillAmount = playerStamina / maxStamina;
+        }
+        else
+        {
+            Debug.Log("staminaProgressUI image is not set");
+        }
+
     }
 
     public IEnumerator StaminaTick()
