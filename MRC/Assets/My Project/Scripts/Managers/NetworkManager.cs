@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkManager instance;
 
     [SerializeField] GameObject playerPrefab;
 
@@ -18,8 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        gameManager = GetComponent<GameManager>();
-        menuManager = GetComponent<MenuManager>();
+        instance = this;
     }
 
 
