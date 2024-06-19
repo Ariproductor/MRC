@@ -68,6 +68,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
         mRCWindow.SetActive(false);
     }
 
+
+
+
+
+
+
     public void SetScreen(Screens _screen)
     {
         mainMenuScreen.SetActive(false);
@@ -189,10 +195,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
         if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas)
         {
             SceneManager.LoadScene("MRC");
+            SetScreen(Screens.None);
         }
         else if (GameManager.instance.selectedLevel == GameManager.Levels.Açougue)
         {
             SceneManager.LoadScene("MRC");
+            SetScreen(Screens.None);
         }
     }
 

@@ -11,12 +11,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject playerPrefab;
 
+    [SerializeField] int playerCount = 2;
 
     private void Awake()
     {
         instance = this;
     }
-
 
     public void ConnectToPhoton()
     {
@@ -38,6 +38,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("OnJoinRandomFailed");
+
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = (byte)playerCount;
+
         PhotonNetwork.CreateRoom(null);
     }
 

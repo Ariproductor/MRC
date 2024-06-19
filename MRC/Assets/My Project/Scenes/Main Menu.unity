@@ -410,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &55410662
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3451,8 +3451,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 485852578}
   - {fileID: 2051372895}
+  - {fileID: 485852578}
   - {fileID: 55410662}
   m_Father: {fileID: 1161059932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3511,6 +3511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3869159894734208639, guid: 398d3932b2bcb2e448f3468e47788578,
     type: 3}
+  playerCount: 2
 --- !u!114 &1161059934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6232,7 +6233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2051372895
 RectTransform:
   m_ObjectHideFlags: 0
