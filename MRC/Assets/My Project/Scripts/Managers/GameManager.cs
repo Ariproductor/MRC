@@ -5,10 +5,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
-
-[RequireComponent(typeof(NetworkManager))]
-//[RequireComponent(typeof(MenuManager))]
-
 public class GameManager : MonoBehaviourPunCallbacks
 {
 
@@ -18,16 +14,22 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [HideInInspector] public Transform cameraPlayer;
 
-    [Header("Related Scripts")]
-    //public NetworkManager networkManager;
-    //public MenuManager menuManager;
-
+    [Header("Player Nickname")]
     public string playerNickName;
+
+
+    public enum Levels
+    {
+        none,
+        LojasAmericanas,
+        Açougue
+    }
+
+    [Header("Selected Level")]
+    public Levels selectedLevel;
 
     private void Awake()
     {
         instance = this;
-        //networkManager = GetComponent<NetworkManager>();
-        //menuManager = GetComponent<MenuManager>();
     }
 }

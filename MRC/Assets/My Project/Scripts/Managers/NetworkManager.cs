@@ -7,15 +7,10 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public static NetworkManager instance;
+    public static NetworkManager instance; //singleton
 
     [SerializeField] GameObject playerPrefab;
 
-    [Header("Related Scripts")]
-    public GameManager gameManager;
-    public MenuManager menuManager;
-
-    public GameObject desktopScreen;
 
     private void Awake()
     {
@@ -56,7 +51,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log("Playercount:" + PhotonNetwork.CurrentRoom.PlayerCount);
-        desktopScreen.SetActive(true);
+        MenuManager.instance.SetScreen(MenuManager.Screens.DesktopScreen);
 
     }
 }

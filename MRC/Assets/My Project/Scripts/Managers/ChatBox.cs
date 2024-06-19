@@ -14,22 +14,6 @@ public class ChatBox : MonoBehaviourPun
     void Awake()
     {
         instance = this;
-
-        // Verificar se os componentes foram atribuídos
-        if (chatLogText == null)
-        {
-            Debug.LogError("chatLogText não foi atribuído no Inspector");
-        }
-
-        if (chatInput == null)
-        {
-            Debug.LogError("chatInput não foi atribuído no Inspector");
-        }
-
-        if (photonView == null)
-        {
-            Debug.LogError("PhotonView não está anexado ao GameObject");
-        }
     }
 
     void Update()

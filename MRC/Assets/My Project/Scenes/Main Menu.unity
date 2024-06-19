@@ -343,9 +343,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051372898}
-        m_TargetAssemblyTypeName: PlayerNicknameMenu, Assembly-CSharp
-        m_MethodName: ButtonRegister
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnRegister
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -404,14 +404,13 @@ GameObject:
   - component: {fileID: 55410662}
   - component: {fileID: 55410664}
   - component: {fileID: 55410663}
-  - component: {fileID: 55410665}
   m_Layer: 5
   m_Name: Desktop Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &55410662
 RectTransform:
   m_ObjectHideFlags: 0
@@ -473,25 +472,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55410661}
   m_CullTransparentMesh: 1
---- !u!114 &55410665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55410661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3d3174d8cbd2d1488315ea93ed4db62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desktopScreen: {fileID: 55410661}
-  chatBox: {fileID: 62652377}
-  chatBoxToggle: 0
-  mRCMenu: {fileID: 58068839}
-  mRCMenuToggle: 0
-  optionsMenu: {fileID: 860087502}
-  optionsMenuToggle: 0
 --- !u!1 &58068839
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,9 +483,8 @@ GameObject:
   - component: {fileID: 58068840}
   - component: {fileID: 58068842}
   - component: {fileID: 58068841}
-  - component: {fileID: 58068843}
   m_Layer: 5
-  m_Name: MRCMenu
+  m_Name: MRC Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,24 +550,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58068839}
   m_CullTransparentMesh: 1
---- !u!114 &58068843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58068839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6d6da4722cb8a4aaff20c34a6b3c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mRCMenu: {fileID: 58068839}
-  levels:
-  - m_Handle: 0
-  - m_Handle: 0
-  selectedLevel:
-    m_Handle: 0
 --- !u!1 &62652377
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,15 +561,13 @@ GameObject:
   - component: {fileID: 62652378}
   - component: {fileID: 62652380}
   - component: {fileID: 62652379}
-  - component: {fileID: 62652381}
-  - component: {fileID: 62652382}
   m_Layer: 5
-  m_Name: ChatBox
+  m_Name: Chat Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &62652378
 RectTransform:
   m_ObjectHideFlags: 0
@@ -670,42 +629,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62652377}
   m_CullTransparentMesh: 1
---- !u!114 &62652381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62652377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 042d836697fdbec4ca9d180621e82a5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatLogText: {fileID: 1199984690}
-  chatInput: {fileID: 1614342692}
---- !u!114 &62652382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62652377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &107159382
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,7 +876,7 @@ GameObject:
   - component: {fileID: 242226560}
   - component: {fileID: 242226559}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Scaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1155,9 +1078,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58068843}
-        m_TargetAssemblyTypeName: MRCMenu, Assembly-CSharp
-        m_MethodName: "ButtonA\xE7ougue"
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: "BtnA\xE7ougue"
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1572,9 +1495,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58068843}
-        m_TargetAssemblyTypeName: MRCMenu, Assembly-CSharp
-        m_MethodName: ButtonLojasAmericanas
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnLojasAmericanas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1894,7 +1817,7 @@ GameObject:
   - component: {fileID: 622753168}
   - component: {fileID: 622753167}
   m_Layer: 5
-  m_Name: Button - ChatBox
+  m_Name: Button - Chat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1965,9 +1888,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 55410665}
-        m_TargetAssemblyTypeName: DesktopScreen, Assembly-CSharp
-        m_MethodName: ButtonChat
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnChat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2643,7 +2566,7 @@ GameObject:
   - component: {fileID: 860087505}
   - component: {fileID: 860087504}
   m_Layer: 5
-  m_Name: OptionsMenu
+  m_Name: Options Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3179,7 +3102,7 @@ GameObject:
   - component: {fileID: 1031270077}
   - component: {fileID: 1031270076}
   m_Layer: 5
-  m_Name: Button - OptionsMenu
+  m_Name: Button - Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3250,9 +3173,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 55410665}
-        m_TargetAssemblyTypeName: DesktopScreen, Assembly-CSharp
-        m_MethodName: ButtonOptionsMenu
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3547,9 +3470,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1161059932}
+  - component: {fileID: 1161059934}
   - component: {fileID: 1161059933}
   - component: {fileID: 1161059935}
-  - component: {fileID: 1161059934}
+  - component: {fileID: 1161059936}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -3587,9 +3511,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3869159894734208639, guid: 398d3932b2bcb2e448f3468e47788578,
     type: 3}
-  gameManager: {fileID: 1161059934}
-  menuManager: {fileID: 1161059935}
-  desktopScreen: {fileID: 55410661}
 --- !u!114 &1161059934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3606,6 +3527,7 @@ MonoBehaviour:
     type: 3}
   cameraPlayer: {fileID: 0}
   playerNickName: 
+  selectedLevel: 0
 --- !u!114 &1161059935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3618,6 +3540,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55a0c824902ad94aa2948f520546f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScreen: 1
+  mainMenuScreen: {fileID: 2051372894}
+  loadingScreen: {fileID: 485852577}
+  desktopScreen: {fileID: 55410661}
+  chatWindow: {fileID: 62652377}
+  chatWindowToggle: 0
+  optionsWindow: {fileID: 860087502}
+  optionsWindowToggle: 0
+  mRCWindow: {fileID: 58068839}
+  mRCWindowToggle: 0
+  inputfieldNickName: {fileID: 952987456}
+  inputFieldChatMsg: {fileID: 1614342692}
+  chatLogText: {fileID: 1199984690}
+--- !u!114 &1161059936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161059931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1199984688
 GameObject:
   m_ObjectHideFlags: 0
@@ -3765,7 +3722,7 @@ GameObject:
   - component: {fileID: 1215118507}
   - component: {fileID: 1215118506}
   m_Layer: 5
-  m_Name: Button - MRCMenu
+  m_Name: Button - MRC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3836,9 +3793,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 55410665}
-        m_TargetAssemblyTypeName: DesktopScreen, Assembly-CSharp
-        m_MethodName: ButtonMRCMenu
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnMRC
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5652,7 +5609,7 @@ GameObject:
   - component: {fileID: 1746371690}
   - component: {fileID: 1746371689}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Input Login Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6269,9 +6226,8 @@ GameObject:
   - component: {fileID: 2051372895}
   - component: {fileID: 2051372897}
   - component: {fileID: 2051372896}
-  - component: {fileID: 2051372898}
   m_Layer: 5
-  m_Name: PlayerNicknameMenu
+  m_Name: Main Menu Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6335,23 +6291,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051372894}
   m_CullTransparentMesh: 1
---- !u!114 &2051372898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051372894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e62de7b3948474fa1faa2a84b3c60f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNicknameMenu: {fileID: 2051372894}
-  gameManager: {fileID: 1161059931}
-  networkManager: {fileID: 0}
-  inputNickName: {fileID: 952987456}
-  playerNickName: 
 --- !u!1 &2053019011
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,9 +6410,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58068843}
-        m_TargetAssemblyTypeName: MRCMenu, Assembly-CSharp
-        m_MethodName: ButtonStartGame
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BtnStartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6738,8 +6677,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChatBox, Assembly-CSharp
+      - m_Target: {fileID: 1161059935}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: BtnEnviarMsg
         m_Mode: 1
         m_Arguments:

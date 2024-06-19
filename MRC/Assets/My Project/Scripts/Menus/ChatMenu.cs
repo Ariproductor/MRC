@@ -14,6 +14,5 @@ public class ChatMenu : MonoBehaviour
 
     public void ButtonChatMenu()
     {
-
     }
 }
