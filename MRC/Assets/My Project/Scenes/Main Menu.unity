@@ -3526,7 +3526,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3869159894734208639, guid: 398d3932b2bcb2e448f3468e47788578,
     type: 3}
-  playerVirtualCamera: {fileID: 0}
   playerNickName: 
   selectedLevel: 0
 --- !u!114 &1161059935

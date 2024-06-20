@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         none,
         LojasAmericanas,
-        Açougue
+        Acougue
     }
 
     [Header("Selected Level")]

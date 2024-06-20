@@ -110,45 +110,50 @@ public class MenuManager : MonoBehaviourPunCallbacks
             NetworkManager.instance.ConnectToPhoton();
 
         }
-        else return;
     }
 
     #region Toggle Windows
     public void BtnChat()
     {
         chatWindowToggle = !chatWindowToggle;
-        if (chatWindowToggle)
+        chatWindow.SetActive(chatWindowToggle);
+
+        /*if (chatWindowToggle)
         {
             chatWindow.SetActive(true);
         }
         else
         {
             chatWindow.SetActive(false);
-        }
+        }*/
     }
     public void BtnMRC()
     {
         mRCWindowToggle = !mRCWindowToggle;
-        if (mRCWindowToggle)
+        mRCWindow.SetActive(mRCWindowToggle);
+
+        /*if (mRCWindowToggle)
         {
             mRCWindow.SetActive(true);
         }
         else
         {
             mRCWindow.SetActive(false);
-        }
+        }*/
     }
     public void BtnOptions()
     {
         optionsWindowToggle = !optionsWindowToggle;
-        if (optionsWindowToggle)
+        optionsWindow.SetActive(optionsWindowToggle);
+
+        /*if (optionsWindowToggle)
         {
             optionsWindow.SetActive(true);
         }
         else
         {
             optionsWindow.SetActive(false);
-        }
+        }*/
     }
     #endregion
 
@@ -183,13 +188,29 @@ public class MenuManager : MonoBehaviourPunCallbacks
         GameManager.instance.selectedLevel = GameManager.Levels.LojasAmericanas;
     }
 
-    public void BtnAçougue()
+    public void BtnAcougue()
     {
-        GameManager.instance.selectedLevel = GameManager.Levels.Açougue;
+        GameManager.instance.selectedLevel = GameManager.Levels.Acougue;
     }
 
     public void BtnStartGame()
     {
+        switch (GameManager.instance.selectedLevel)
+        {
+            case GameManager.Levels.none:
+                break;
+
+            case GameManager.Levels.LojasAmericanas:
+                SceneManager.LoadScene("MRC");
+                SetScreen(Screens.None);
+                break;
+
+            case GameManager.Levels.Acougue:
+                SceneManager.LoadScene("MRC");
+                SetScreen(Screens.None);
+                break;
+        }
+        /*
         if (GameManager.instance.selectedLevel == GameManager.Levels.none) return;
 
         if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas)
@@ -197,11 +218,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("MRC");
             SetScreen(Screens.None);
         }
-        else if (GameManager.instance.selectedLevel == GameManager.Levels.Açougue)
+        else if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue)
         {
             SceneManager.LoadScene("MRC");
             SetScreen(Screens.None);
         }
+        */
     }
 
 
