@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -12,7 +13,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject playerPrefab;
 
 
-    [HideInInspector] public Transform cameraPlayer;
 
     [Header("Player Nickname")]
     public string playerNickName;

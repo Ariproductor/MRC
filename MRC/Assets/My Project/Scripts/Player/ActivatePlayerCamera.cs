@@ -2,34 +2,24 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+
 
 public class ActivatePlayerCamera : MonoBehaviour
 {
-    public GameObject targetToFollow;
-    public CinemachineVirtualCamera vCamera;
-    public Vector3 cameraOffset = new Vector3(30, 30, -30);
+    public GameObject playerVirtualCamera;
+    public PhotonView photonView;
 
-
-    void Start()
+    private void Awake()
     {
-        targetToFollow.AddComponent<CinemachineVirtualCamera>();
-        vCamera = targetToFollow.GetComponent<CinemachineVirtualCamera>();
-
-
-        // Configura a câmera para ser ortogonal
-        vCamera.m_Lens.Orthographic = true;
-        vCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = cameraOffset;
-
-        // Define o objeto a ser seguido
-        if (targetToFollow != null)
+        if (photonView.IsMine)
         {
-            vCamera.Follow = targetToFollow.transform;
-            vCamera.LookAt = targetToFollow.transform;
+            playerVirtualCamera.SetActive(true);
         }
         else
         {
-            Debug.LogWarning("Target to follow is not set.");
+            playerVirtualCamera.SetActive(false);
         }
-
     }
 }
