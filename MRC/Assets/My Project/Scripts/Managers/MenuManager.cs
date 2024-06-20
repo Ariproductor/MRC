@@ -6,6 +6,8 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
+using static GameManager;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
@@ -183,51 +185,59 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     #region MRCWindow
 
+
+    
     public void BtnLojasAmericanas()
     {
         GameManager.instance.selectedLevel = GameManager.Levels.LojasAmericanas;
+        GameManager.instance.SelectLevel();
     }
 
+
+
+    [PunRPC]
     public void BtnAcougue()
     {
         GameManager.instance.selectedLevel = GameManager.Levels.Acougue;
+        GameManager.instance.SelectLevel();
     }
+    
 
+
+
+    [PunRPC]
     public void BtnStartGame()
+    {
+        SetScreen(Screens.LoadingScreen);
+
+        if (GameManager.instance.selectedLevel == GameManager.Levels.none)
+        {
+            Debug.Log("Nenhum Level Selecionado");
+            SetScreen(Screens.DesktopScreen);
+            return;
+        }
+
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            photonView.RPC("LoadLevel", RpcTarget.All);
+        }
+    }
+    [PunRPC]
+    public void LoadLevel()
     {
         switch (GameManager.instance.selectedLevel)
         {
-            case GameManager.Levels.none:
-                break;
-
+            
             case GameManager.Levels.LojasAmericanas:
-                SceneManager.LoadScene("MRC");
-                SetScreen(Screens.None);
+                PhotonNetwork.LoadLevel("MRC");
                 break;
 
             case GameManager.Levels.Acougue:
-                SceneManager.LoadScene("MRC");
-                SetScreen(Screens.None);
+                PhotonNetwork.LoadLevel("MRC");
                 break;
         }
-        /*
-        if (GameManager.instance.selectedLevel == GameManager.Levels.none) return;
-
-        if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas)
-        {
-            SceneManager.LoadScene("MRC");
-            SetScreen(Screens.None);
-        }
-        else if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue)
-        {
-            SceneManager.LoadScene("MRC");
-            SetScreen(Screens.None);
-        }
-        */
     }
-
-
-
 
     #endregion
 }

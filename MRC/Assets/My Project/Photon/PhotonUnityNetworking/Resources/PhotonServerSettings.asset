@@ -38,6 +38,12 @@ MonoBehaviour:
   - DestroyRpc
   - CreatePlayerAvatar
   - Log
+  - BtnStartGame
+  - LoadLevel
+  - BtnAcougue
+  - BtnLojasAmericanas
+  - SelectLevel
+  - StartGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
