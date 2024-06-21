@@ -186,27 +186,51 @@ public class MenuManager : MonoBehaviourPunCallbacks
     #region MRCWindow
 
 
-    
+    [PunRPC]
     public void BtnLojasAmericanas()
     {
-        GameManager.instance.selectedLevel = GameManager.Levels.LojasAmericanas;
-        GameManager.instance.SelectLevel();
+        photonView.RPC("SelectLojasAmericanas", RpcTarget.All);
+        
     }
 
-
+    [PunRPC]
+    public void SelectLojasAmericanas()
+    {
+        GameManager.instance.selectedLevel = GameManager.Levels.LojasAmericanas;
+        if (GameManager.instance.acougue.Contains(PhotonNetwork.LocalPlayer))
+        {
+            GameManager.instance.acougue.Remove(PhotonNetwork.LocalPlayer);
+        }
+        GameManager.instance.americanas.Add(PhotonNetwork.LocalPlayer);
+        Debug.Log(GameManager.instance.americanas.Count + " Americanas");
+    }
 
     [PunRPC]
     public void BtnAcougue()
     {
-        GameManager.instance.selectedLevel = GameManager.Levels.Acougue;
-        GameManager.instance.SelectLevel();
+        photonView.RPC("SelectAcougue", RpcTarget.All);
     }
-    
 
-
+    [PunRPC]
+    public void SelectAcougue()
+    {
+        GameManager.instance.selectedLevel = GameManager.Levels.Acougue;
+        if (GameManager.instance.americanas.Contains(PhotonNetwork.LocalPlayer))
+        {
+            GameManager.instance.americanas.Remove(PhotonNetwork.LocalPlayer);
+        }
+        GameManager.instance.acougue.Add(PhotonNetwork.LocalPlayer);
+        Debug.Log(GameManager.instance.acougue.Count + " Acougue");
+    }
 
     [PunRPC]
     public void BtnStartGame()
+    {
+        photonView.RPC("StartGame", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void StartGame()
     {
         SetScreen(Screens.LoadingScreen);
 
@@ -217,12 +241,22 @@ public class MenuManager : MonoBehaviourPunCallbacks
             return;
         }
 
-
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue && GameManager.instance.acougue.Count >= 2)
         {
-            photonView.RPC("LoadLevel", RpcTarget.All);
+            PhotonNetwork.LoadLevel("MRC");
+            SetScreen(Screens.None);
+            return;
         }
+
+        if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas && GameManager.instance.americanas.Count >= 2)
+        {
+            PhotonNetwork.LoadLevel("MRC");
+            SetScreen(Screens.None);
+            return;
+        }
+
     }
+
     [PunRPC]
     public void LoadLevel()
     {
@@ -238,6 +272,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
                 break;
         }
     }
+
 
     #endregion
 }

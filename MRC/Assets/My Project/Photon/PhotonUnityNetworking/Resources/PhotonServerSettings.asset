@@ -44,6 +44,8 @@ MonoBehaviour:
   - BtnLojasAmericanas
   - SelectLevel
   - StartGame
+  - SelectAcougue
+  - SelectLojasAmericanas
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
