@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 using static GameManager;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
@@ -27,6 +28,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public GameObject loadingScreen;
     public GameObject desktopScreen;
 
+    [Header("RegisterWindowElements")]
+    public TMP_InputField inputfieldNickName;
+    public Button registerButton;
+
 
     [Header("DesktopMenu SubWindows")]
     public GameObject chatWindow;
@@ -36,9 +41,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public GameObject mRCWindow;
     public bool mRCWindowToggle = false;
 
+    [Header("DesktopMenu SubWindows")]
+    public Button startGameButton;
+
+
 
     [Header("TextMeshPro Inputs")]
-    public TMP_InputField inputfieldNickName;
     public TMP_InputField inputFieldChatMsg;
 
 
@@ -100,7 +108,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
         }
     }
-
+    #region RegisterWindow
     public void BtnRegister()
     {
         if (inputfieldNickName.text.Length > 0)
@@ -114,8 +122,25 @@ public class MenuManager : MonoBehaviourPunCallbacks
         }
     }
 
-    #region Toggle Windows
-    public void BtnChat()
+    public void OnChangedLengthNickInput()
+    {
+        if (inputfieldNickName.text.Length >= 3)
+
+        {
+            registerButton.interactable = true;
+        }
+
+        else
+        {
+            registerButton.interactable = false;
+        }
+    }
+
+        #endregion
+
+
+        #region Toggle Windows
+        public void BtnChat()
     {
         chatWindowToggle = !chatWindowToggle;
         chatWindow.SetActive(chatWindowToggle);
@@ -203,6 +228,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         }
         GameManager.instance.americanas.Add(PhotonNetwork.LocalPlayer);
         Debug.Log(GameManager.instance.americanas.Count + " Americanas");
+        startGameButton.interactable = true;
     }
 
     [PunRPC]
@@ -221,6 +247,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         }
         GameManager.instance.acougue.Add(PhotonNetwork.LocalPlayer);
         Debug.Log(GameManager.instance.acougue.Count + " Acougue");
+        startGameButton.interactable = true;
     }
 
     [PunRPC]
