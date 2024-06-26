@@ -33,6 +33,15 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public Button registerButton;
 
 
+    [Header("LoadingScreen")]
+
+    public TextMeshProUGUI inputFieldWelcomePlayer;
+
+    [Header("DesktopMenu")]
+    public TextMeshProUGUI inputFieldNumberOfPlayers;
+
+
+
     [Header("DesktopMenu SubWindows")]
     public GameObject chatWindow;
     public bool chatWindowToggle = false;
@@ -46,11 +55,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
 
 
-    [Header("TextMeshPro Inputs")]
+    [Header("Chat")]
     public TMP_InputField inputFieldChatMsg;
-
-
     public TextMeshProUGUI chatLogText;
+    public Button chatSendButton;
     
 
 
@@ -76,12 +84,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
         chatWindow.SetActive(false);
         optionsWindow.SetActive(false);
         mRCWindow.SetActive(false);
+
+        SwitchStartButton();
+
     }
-
-
-
-
-
 
 
     public void SetScreen(Screens _screen)
@@ -108,6 +114,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
         }
     }
+
+
     #region RegisterWindow
     public void BtnRegister()
     {
@@ -116,6 +124,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
             GameManager.instance.playerNickName = inputfieldNickName.text;
             PhotonNetwork.LocalPlayer.NickName = GameManager.instance.playerNickName;
             Debug.Log("Your Nickname is: " + inputfieldNickName.text);
+            inputFieldWelcomePlayer.text = string.Format("Welcome " + GameManager.instance.playerNickName);
             SetScreen(Screens.LoadingScreen);
             NetworkManager.instance.ConnectToPhoton();
 
@@ -138,8 +147,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
         #endregion
 
-
-        #region Toggle Windows
+    #region Toggle Windows
         public void BtnChat()
     {
         chatWindowToggle = !chatWindowToggle;
@@ -206,6 +214,30 @@ public class MenuManager : MonoBehaviourPunCallbacks
         // ajusta o tamanho do chat log conforme o tamanho do texto
         chatLogText.rectTransform.sizeDelta = new Vector2(chatLogText.rectTransform.sizeDelta.x, chatLogText.mesh.bounds.size.y + 20);
     }
+
+
+
+    public void UpdateChatStatus()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            inputFieldChatMsg.interactable = true;
+            chatSendButton.interactable = true;
+            
+            chatLogText.text = string.Format("You are Connected" + "\n");
+        }
+        else
+        {
+            inputFieldChatMsg.interactable = false;
+            chatSendButton.interactable = false;
+            chatLogText.text = "You are Disconected";
+        }
+
+
+
+    }
+
+
     #endregion
 
     #region MRCWindow
@@ -214,60 +246,67 @@ public class MenuManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void BtnLojasAmericanas()
     {
-        photonView.RPC("SelectLojasAmericanas", RpcTarget.All);
-        
-    }
+        GameManager.instance.selectedLevel = Levels.LojasAmericanas;
+        NetworkManager.instance.JoinRoomAmericanas();
 
-    [PunRPC]
-    public void SelectLojasAmericanas()
-    {
-        GameManager.instance.selectedLevel = GameManager.Levels.LojasAmericanas;
-        if (GameManager.instance.acougue.Contains(PhotonNetwork.LocalPlayer))
-        {
-            GameManager.instance.acougue.Remove(PhotonNetwork.LocalPlayer);
-        }
-        GameManager.instance.americanas.Add(PhotonNetwork.LocalPlayer);
-        Debug.Log(GameManager.instance.americanas.Count + " Americanas");
-        startGameButton.interactable = true;
     }
 
     [PunRPC]
     public void BtnAcougue()
     {
-        photonView.RPC("SelectAcougue", RpcTarget.All);
+        GameManager.instance.selectedLevel = Levels.Acougue;
+        NetworkManager.instance.JoinRoomAcougue();
+
     }
 
-    [PunRPC]
-    public void SelectAcougue()
+   public void SwitchStartButton()
     {
-        GameManager.instance.selectedLevel = GameManager.Levels.Acougue;
-        if (GameManager.instance.americanas.Contains(PhotonNetwork.LocalPlayer))
+        if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
-            GameManager.instance.americanas.Remove(PhotonNetwork.LocalPlayer);
+            startGameButton.interactable = true;
         }
-        GameManager.instance.acougue.Add(PhotonNetwork.LocalPlayer);
-        Debug.Log(GameManager.instance.acougue.Count + " Acougue");
-        startGameButton.interactable = true;
+        else
+        {
+            startGameButton.interactable = false;
+        }
     }
 
     [PunRPC]
     public void BtnStartGame()
     {
-        photonView.RPC("StartGame", RpcTarget.All);
+        if (PhotonNetwork.CurrentRoom.Name.Contains("Americanas") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            SetScreen(Screens.LoadingScreen);
+            photonView.RPC("StartGame", RpcTarget.All);
+        }
+
+        if (PhotonNetwork.CurrentRoom.Name.Contains("Acougue") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            SetScreen(Screens.LoadingScreen);
+            photonView.RPC("StartGame", RpcTarget.All);
+        }
+
+
     }
 
     [PunRPC]
     public void StartGame()
     {
-        SetScreen(Screens.LoadingScreen);
-
-        if (GameManager.instance.selectedLevel == GameManager.Levels.none)
+        if (PhotonNetwork.CurrentRoom.Name.Contains("Americanas") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
-            Debug.Log("Nenhum Level Selecionado");
-            SetScreen(Screens.DesktopScreen);
+            PhotonNetwork.LoadLevel("MRC");
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("Acougue") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            PhotonNetwork.LoadLevel("MRC");
+        }
+        else
+        {
+            Debug.Log("Error: MenuManager / StartGame Failed");
             return;
         }
 
+        /*
         if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue && GameManager.instance.acougue.Count >= 2)
         {
             PhotonNetwork.LoadLevel("MRC");
@@ -281,7 +320,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
             SetScreen(Screens.None);
             return;
         }
-
+        */
     }
 
     [PunRPC]
@@ -298,6 +337,21 @@ public class MenuManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel("MRC");
                 break;
         }
+    }
+
+    public void UpdateNumberOfPlayers()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            inputFieldNumberOfPlayers.text = string.Format("N°: " + PhotonNetwork.CurrentRoom.PlayerCount);
+            SwitchStartButton();
+        }
+        else
+        {
+            inputFieldNumberOfPlayers.text = string.Format("N°: " + "0");
+            SwitchStartButton();
+        }
+
     }
 
 

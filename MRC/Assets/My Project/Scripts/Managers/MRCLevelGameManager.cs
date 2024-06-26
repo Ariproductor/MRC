@@ -12,6 +12,7 @@ public class MRCLevelGameManager : MonoBehaviour
 
     private void Start()
     {
+        MenuManager.instance.SetScreen(Screens.None);
         CreatePlayerAvatar();
     }
 
