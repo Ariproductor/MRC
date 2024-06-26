@@ -43,40 +43,5 @@ public class GameManager : MonoBehaviourPunCallbacks
             acougue = new List<Player>();
         }
     }
-    /*
-    [PunRPC]
-    public void SelectLevel()
-    {
-        if (americanas.Contains(PhotonNetwork.LocalPlayer))
-        {
-            americanas.Remove(PhotonNetwork.LocalPlayer);
-        }
-
-        if (acougue.Contains(PhotonNetwork.LocalPlayer))
-        {
-            acougue.Remove(PhotonNetwork.LocalPlayer);
-        }
-                
-        switch (selectedLevel)
-        {
-            case Levels.none:
-                selectedLevel = Levels.none;
-                break;
-
-            case Levels.LojasAmericanas:
-                selectedLevel = Levels.LojasAmericanas;
-                americanas.Add(PhotonNetwork.LocalPlayer);
-                Debug.Log(americanas.Count + " Americanas");
-                break; 
-            
-            case Levels.Acougue:
-                selectedLevel = Levels.Acougue;
-                acougue.Add(PhotonNetwork.LocalPlayer);
-                Debug.Log(americanas.Count + "Acougue");
-                break;
-        }
-        
-    }
-    */
 
 }

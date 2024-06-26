@@ -35,6 +35,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         MenuManager.instance.UpdateChatStatus();
     }
 
+    public void DisconnectFromRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Debug.Log("Leaving Room");
+        MenuManager.instance.UpdateNumberOfPlayers();
+        MenuManager.instance.UpdateChatStatus();
+    }
+
     public void JoinRoomAmericanas()
     {
         if (PhotonNetwork.InRoom)
@@ -45,17 +53,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 return;
             }
 
-            PhotonNetwork.LeaveRoom();
-            Debug.Log("Changing Room");
-            MenuManager.instance.UpdateNumberOfPlayers();
-            MenuManager.instance.UpdateChatStatus();
+
         }
         else
         {
             Debug.Log("Trying to Join Americanas");
             PhotonNetwork.JoinRoom("Americanas");
         }
-
     }
 
     public void JoinRoomAcougue()
@@ -67,10 +71,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 Debug.Log("Already in Room: Acougue");
                 return;
             }
-
-            PhotonNetwork.LeaveRoom();
-            Debug.Log("Changing Room");
-            MenuManager.instance.UpdateNumberOfPlayers();
 
         }
         else
@@ -89,7 +89,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4; // Set the max players to 4, adjust as necessary
             PhotonNetwork.CreateRoom("Americanas", roomOptions);
-            Debug.Log("Created room: Americanas");
+            Debug.Log("Creating room: Americanas");
 
         }
 
@@ -98,7 +98,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4; // Set the max players to 4, adjust as necessary
             PhotonNetwork.CreateRoom("Acougue", roomOptions);
-            Debug.Log("Created room: Acougue");
+            Debug.Log("Creating room: Acougue");
 
         }
     }
@@ -107,7 +107,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Created a Room");
     }
-
 
     public override void OnJoinedRoom()
     {
@@ -124,6 +123,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Left the Room");
         MenuManager.instance.UpdateChatStatus();
 
+        while (PhotonNetwork.InRoom)
+        {
+            return;
+        }
+
+        if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas)
+        {
+            Debug.Log("Trying to Join Americanas");
+            PhotonNetwork.JoinRoom("Americanas");
+        }
+
+        if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue)
+        {
+            Debug.Log("Trying to Join Acougue");
+            PhotonNetwork.JoinRoom("Acougue");
+        }
 
     }
 
@@ -133,7 +148,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Player entered: " + newPlayer.NickName);
         Debug.Log("Players currently in the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         MenuManager.instance.UpdateNumberOfPlayers();
-            }
+
+    }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {

@@ -414,11 +414,12 @@ GameObject:
   - component: {fileID: 2753754749526592924}
   - component: {fileID: 2640071424690393287}
   - component: {fileID: 474376916618973481}
+  - component: {fileID: 1264319456348500515}
+  - component: {fileID: 7126772221473387635}
   - component: {fileID: 7742635423937018596}
   - component: {fileID: 8735923409849506649}
   - component: {fileID: 2086502992329076234}
   - component: {fileID: 2942231932235201930}
-  - component: {fileID: 7126772221473387635}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -560,6 +561,33 @@ MonoBehaviour:
   isCrouchAttempt: 0
   currentMoveSpeed: 6
   moveDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &1264319456348500515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869159894734208639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a10a2eb3e46c94cbd4bfbce141d97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+--- !u!114 &7126772221473387635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869159894734208639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0a77edc6c929f4dbf7a4f43eb302d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVirtualCamera: {fileID: 3271438472279987972}
+  photonView: {fileID: 7742635423937018596}
 --- !u!114 &7742635423937018596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,20 +671,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &7126772221473387635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3869159894734208639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad0a77edc6c929f4dbf7a4f43eb302d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerVirtualCamera: {fileID: 3271438472279987972}
-  photonView: {fileID: 7742635423937018596}
 --- !u!1 &4202176307253822929
 GameObject:
   m_ObjectHideFlags: 0

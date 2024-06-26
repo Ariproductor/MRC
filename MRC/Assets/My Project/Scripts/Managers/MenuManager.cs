@@ -50,8 +50,11 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public GameObject mRCWindow;
     public bool mRCWindowToggle = false;
 
-    [Header("DesktopMenu SubWindows")]
+    [Header("MRC SubWindow")]
     public Button startGameButton;
+    public Button buttonLojasAmericanas;
+    public Button buttonAcougue;
+    public Button buttonDisconect;
 
 
 
@@ -85,8 +88,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         optionsWindow.SetActive(false);
         mRCWindow.SetActive(false);
 
-        SwitchStartButton();
-
+        SwitchLevelSelectionButtons();
     }
 
 
@@ -259,16 +261,11 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     }
 
-   public void SwitchStartButton()
+    [PunRPC]
+    public void BtnDisconect()
     {
-        if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
-        {
-            startGameButton.interactable = true;
-        }
-        else
-        {
-            startGameButton.interactable = false;
-        }
+        GameManager.instance.selectedLevel = Levels.none;
+        NetworkManager.instance.DisconnectFromRoom();
     }
 
     [PunRPC]
@@ -303,24 +300,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("Error: MenuManager / StartGame Failed");
+            SwitchLevelSelectionButtons();
             return;
         }
-
-        /*
-        if (GameManager.instance.selectedLevel == GameManager.Levels.Acougue && GameManager.instance.acougue.Count >= 2)
-        {
-            PhotonNetwork.LoadLevel("MRC");
-            SetScreen(Screens.None);
-            return;
-        }
-
-        if (GameManager.instance.selectedLevel == GameManager.Levels.LojasAmericanas && GameManager.instance.americanas.Count >= 2)
-        {
-            PhotonNetwork.LoadLevel("MRC");
-            SetScreen(Screens.None);
-            return;
-        }
-        */
     }
 
     [PunRPC]
@@ -344,13 +326,44 @@ public class MenuManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
         {
             inputFieldNumberOfPlayers.text = string.Format("N°: " + PhotonNetwork.CurrentRoom.PlayerCount);
-            SwitchStartButton();
+            SwitchLevelSelectionButtons();
         }
         else
         {
             inputFieldNumberOfPlayers.text = string.Format("N°: " + "0");
-            SwitchStartButton();
+            SwitchLevelSelectionButtons();
         }
+
+    }
+
+    public void SwitchLevelSelectionButtons()
+    {
+
+
+        if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            startGameButton.interactable = true;
+        }
+        else
+        {
+            startGameButton.interactable = false;
+        }
+
+        if (PhotonNetwork.InRoom)
+        {
+            buttonDisconect.interactable = true;
+            buttonLojasAmericanas.interactable = false;
+            buttonAcougue.interactable = false;
+        }
+        else
+        {
+            buttonDisconect.interactable = false;
+            buttonLojasAmericanas.interactable = true;
+            buttonAcougue.interactable = true;
+        }
+
+
+
 
     }
 
