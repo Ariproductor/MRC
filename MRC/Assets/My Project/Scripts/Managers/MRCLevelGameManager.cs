@@ -20,9 +20,8 @@ public class MRCLevelGameManager : MonoBehaviour
     [PunRPC]
     public void CreatePlayerAvatar()
     {
-        Vector3 pos = new Vector3(0f, 5f, 0f);
-        PhotonNetwork.Instantiate(playerPrefab.name, transform.position, Quaternion.identity);
+        Vector3 spawnPoint = new Vector3(Random.Range(0f, 5f), 5f, Random.Range(0f, 5f));
+        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint, Quaternion.identity);
         MenuManager.instance.SetScreen(MenuManager.Screens.None);
-
     }
 }

@@ -6,7 +6,6 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
 using static GameManager;
 using UnityEngine.UI;
 
@@ -273,14 +272,23 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom.Name.Contains("Americanas") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = 4;
+
             SetScreen(Screens.LoadingScreen);
             photonView.RPC("StartGame", RpcTarget.All);
-        }
+            PhotonNetwork.CreateRoom(string.Format("Americanas Game N° " + Random.Range(1f, 999f)), options, TypedLobby.Default);
+
+    }
 
         if (PhotonNetwork.CurrentRoom.Name.Contains("Acougue") && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = 4;
+
             SetScreen(Screens.LoadingScreen);
             photonView.RPC("StartGame", RpcTarget.All);
+            PhotonNetwork.CreateRoom(string.Format("Acougue Game N° " + Random.Range(1f, 999f)), options, TypedLobby.Default);
         }
 
 
